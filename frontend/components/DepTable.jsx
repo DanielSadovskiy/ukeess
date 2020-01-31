@@ -72,7 +72,7 @@ export const DepTable = ({
   setEditableDepartment
 }) => {
   useEffect(() => {
-    if (!departments.length) getDepartmentsCount();
+    getDepartmentsCount();
   }, []);
   useEffect(() => {
     getDepartments(currPage, 4);

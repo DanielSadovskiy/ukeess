@@ -89,13 +89,14 @@ export const EmplTable = ({
   getEmployeesCount,
   openEditEmplModal,
   setEditableEmployee,
-  changeCurrPage
+  changeCurrPage,
+  setColor
 }) => {
   useEffect(() => {
     getEmployeesCount(startsWith);
-  }, [startsWith]);
-  useEffect(() => {
-    getEmployees(currPage, 4, startsWith);
+    getEmployees(currPage, 4, startsWith).then(res => {
+      res.data.map(empl => setColor(empl.dpID.name));
+    });
   }, [startsWith, currPage]);
   useEffect(() => {
     if (employees.length === 0 && wasDeleted) {

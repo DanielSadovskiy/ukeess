@@ -14,7 +14,11 @@ const initialState = {
 };
 export const employees = (state = initialState, action) => {
   switch (action.type) {
-    case actionTypes.emplTypes.GET_EMPLOYEES:
+    case actionTypes.emplTypes.GET_EMPLOYEES_REQUEST:
+      return {
+        ...state
+      };
+    case actionTypes.emplTypes.GET_EMPLOYEES_SUCCESS:
       return {
         ...state,
         employees: [...action.payload],
@@ -92,10 +96,7 @@ export const employees = (state = initialState, action) => {
     case actionTypes.emplTypes.SEARCH_EMPLOYEES_BY_NAME_REQUEST: {
       return {
         ...state,
-        employees: [],
-        currPage: 1,
-        totalPages: 0,
-        totalEmployees: 0
+        currPage: 1
       };
     }
     case actionTypes.emplTypes.SEARCH_EMPLOYEES_BY_NAME_SUCCESS: {

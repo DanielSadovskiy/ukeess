@@ -87,7 +87,9 @@ export const updateDepartment = (id, name) => async dispatch => {
       return e.response;
     });
 };
-
+export const setColor = name => async dispatch => {
+  dispatch({ type: actionTypes.depsTypes.SET_COLOR, payload: name });
+};
 export const setEditableDepartment = id => async dispatch => {
   dispatch({ type: actionTypes.depsTypes.SET_EDITABLE_DEPARTMENT, payload: id });
 };

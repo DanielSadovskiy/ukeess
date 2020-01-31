@@ -6,11 +6,14 @@ const baseURL = axios.create({
 });
 
 export const getEmployees = (page, count, startsWith) => async dispatch => {
+  dispatch({
+    type: actionTypes.emplTypes.GET_EMPLOYEES_REQUEST
+  });
   return baseURL
     .get('/getemployees', { params: { page: page, count: count, startsWith: startsWith } })
     .then(res => {
       dispatch({
-        type: actionTypes.emplTypes.GET_EMPLOYEES,
+        type: actionTypes.emplTypes.GET_EMPLOYEES_SUCCESS,
         payload: res.data
       });
       return res;

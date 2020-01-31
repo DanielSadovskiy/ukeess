@@ -1,4 +1,5 @@
 import { actionTypes } from '../actions/actionTypes';
+import { actionChannel } from '@redux-saga/core/effects';
 
 const initialState = {
   departments: [],
@@ -28,21 +29,21 @@ export const departments = (state = initialState, action) => {
       return {
         ...state,
         departments: [...action.payload],
-
         wasDeleted: false,
         colors: action.payload.reduce(
           (acc, dep) => ({
             ...acc,
-            [dep.name]: generateColor()
+            [dep.name]: state.colors[dep.name] ? state.colors[dep.name] : generateColor()
           }),
-          {}
+          { ...state.colors }
         )
       };
     case actionTypes.depsTypes.GET_DEPARTMENTS_COUNT:
       return {
         ...state,
         totalDepartments: action.payload.totalCount,
-        totalPages: Math.ceil(action.payload.totalCount / 4)
+        totalPages: Math.ceil(action.payload.totalCount / 4),
+        currPage: 1
       };
 
     case actionTypes.depsTypes.CREATE_DEPARTMENT_REQUEST:
@@ -102,6 +103,17 @@ export const departments = (state = initialState, action) => {
       return {
         ...state,
         currPage: action.payload
+      };
+    }
+    case actionTypes.depsTypes.SET_COLOR: {
+      return {
+        ...state,
+        colors: {
+          ...state.colors,
+          [action.payload]: state.colors[action.payload]
+            ? state.colors[action.payload]
+            : generateColor()
+        }
       };
     }
     case actionTypes.depsTypes.OPEN_EDIT_DEP_MODAL:
