@@ -1,0 +1,16 @@
+type Employee {
+  id: ID! @id
+  name: String! @unique
+  active: String! 
+  dpID: Department!  @relation(link: INLINE)
+}
+type Department {
+  id: ID! @id
+  name: String! @unique
+}
+type Admin {
+  id: ID! @id
+  email: String! @unique
+  name: String! @unique
+  password: String!
+}
